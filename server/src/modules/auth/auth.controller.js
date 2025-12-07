@@ -24,7 +24,8 @@ exports.register = async (req, res) => {
         })
 
         const token = jwt.sign({
-            id: user._id
+            id: user._id,
+            role: user.role
         }, process.env.JWT_SECRET, { expiresIn: "7d" })
 
         res.cookie("token", token, {
@@ -39,7 +40,8 @@ exports.register = async (req, res) => {
                 id: user._id,
                 username: user.username,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                role: user.role
             }
         })
 
@@ -63,7 +65,7 @@ exports.login = async (req, res) => {
         if (!checkPass)
             return res.status(400).json({ msg: "Password invalid" })
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" })
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" })
 
         res.cookie("token", token, {
             httpOnly: true,
@@ -77,7 +79,8 @@ exports.login = async (req, res) => {
                 id: user._id,
                 email: user.email,
                 username: user.username,
-                name: user.name
+                name: user.name,
+                role: user.role
             }
         })
 

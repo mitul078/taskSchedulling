@@ -7,9 +7,9 @@ exports.authMiddleware = async (req, res, next) => {
         if (!token)
             return res.status(404).json({ msg: "Login require" })
 
-        const decoded = jwt.verify(token , process.env.JWT_SECRETE)
-        
-        req.user = {id: decoded.id}
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+        req.user = decoded
 
         next()
 
