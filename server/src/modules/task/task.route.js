@@ -2,7 +2,7 @@ const express = require("express")
 const { authMiddleware } = require("../../middleware/auth.middleware")
 const { checkRole } = require("../../middleware/role.middleware")
 const { createTask, deleteTask, getTask, updateTaskStatus } = require("./task.controller")
-const router = express.Router
+const router = express.Router()
 
 
 //task CRUD

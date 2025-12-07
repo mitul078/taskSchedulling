@@ -1,14 +1,3 @@
-//admin
-// list-managers
-// list-employee
-// update the employee role
-// get-completed-task
-// get-in-progress-task
-// get-pending-task
-// delete the employee && manager
-// info about the task: who completed and by which manager assigned
-
-
 const Task = require("./task.model")
 const User = require("../auth/auth.model")
 
@@ -23,6 +12,10 @@ exports.createTask = async (req, res) => {
 
         if (!title || !description || !dueDate || !userId)
             return res.status(400).json({ msg: "Fields are required" })
+
+        if (isNaN(new Date(dueDate).getTime())) {
+            return res.status(400).json({ msg: "Invalid due date" });
+        }
 
         const findUser = await User.findById(id)
         if (!findUser)
